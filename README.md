@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="assets/worldagen_logo.png" alt="WorldAgen logo" height="38" style="vertical-align: middle; margin-right: 6px;">
+  <img src="assets/worldagen_logo.png" alt="WorldAgen logo" height="64" style="vertical-align: middle; margin-right: 10px;">
   WorldAgen
 </h1>
 <p align="center"><b>Unified State-Action Prediction with Test-Time World Model Training</b></p>
@@ -74,43 +74,10 @@ WorldAgen/
 
 ## 🚀 Getting Started <a name="start"></a>
 
-**(1) Clone and create the environment**
+Environment setup (conda + dependencies), dataset download, training, and evaluation are documented per benchmark. Follow the guide for the benchmark you want to run:
 
-```bash
-git clone https://github.com/mll-lab-nu/WorldAgen.git
-cd WorldAgen
-
-conda create -n worldagen python=3.10 -y
-conda activate worldagen
-pip install -r requirements.txt
-```
-
-**(2) Set up a benchmark and download its data**
-
-We provide step-by-step guides for two popular simulation benchmarks:
-
-- **[CALVIN](docs/CALVIN.md)** — environment setup, dataset download, training, and evaluation.
-- **[LIBERO](docs/LIBERO.md)** — environment setup, dataset download, training, and evaluation.
-
-**(3) (Optional) Download pretrained checkpoints**
-
-```bash
-bash scripts/download_checkpoints.sh
-```
-
-**(4) Train and evaluate**
-
-```bash
-# CALVIN
-bash scripts/calvin/train.sh          # train the base model
-bash scripts/calvin/eval_wo_ttt.sh    # evaluate without TTT
-bash scripts/calvin/eval_ttt.sh       # evaluate with Test-Time Training
-
-# LIBERO
-bash scripts/libero/train.sh
-bash scripts/libero/eval_wo_ttt.sh
-bash scripts/libero/eval_ttt.sh
-```
+- **[CALVIN](docs/CALVIN.md)** — setup, training, and evaluation instructions.
+- **[LIBERO](docs/LIBERO.md)** — setup, training, and evaluation instructions.
 
 ## 📊 Experimental Results
 
