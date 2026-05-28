@@ -53,9 +53,10 @@ cp -r data_info/except_lang_idx/except_lang_idx.npy calvin/dataset/task_ABC_D/tr
 
 **(1) Download Relevant Checkpoints**
 
-> For your convenience, we recommend using [gdown](https://github.com/wkentaro/gdown) to download checkpoints directly from Google Drive.
+> All checkpoints are hosted on the Hugging Face Hub: [MLL-Lab/worldagen](https://huggingface.co/MLL-Lab/worldagen).
+> The easiest option is to run `bash scripts/download_checkpoints.sh`, which fetches every checkpoint and places it at the local path the scripts expect. The manual links are listed below.
 
-Download [MAE-Pretrained ViT-B Model](https://drive.google.com/file/d/1bSsvRI4mDM3Gg51C6xO0l9CbojYw3OEt/view?usp=share_link). Make sure to place the downloaded checkpoint files in the appropriate directory `checkpoints/` (recommended path: `checkpoints/vit_mae/mae_pretrain_vit_base.pth`).
+Download the [MAE-Pretrained ViT-B Model](https://huggingface.co/MLL-Lab/worldagen/blob/main/mae/mae_pretrain_vit_base.pth). Make sure to place the downloaded checkpoint file in the appropriate directory `checkpoints/` (recommended path: `checkpoints/vit_mae/mae_pretrain_vit_base.pth`).
 
 **(2) Update Config Files and Scripts**
 
@@ -66,7 +67,7 @@ The following variables should be updated to match your local paths and experime
 * **resume_from_checkpoint**: the fine-tuned checkpoint path used for evaluation (typically determined by `experiment_name` + `ckpt_names`).
 
 * **networkx:**
-Due to compatibility issues between the networkx library in CALVIN and Python 3.10, we provide a compatible version of networkx.zip on the [website](https://drive.google.com/file/d/1z-d1SaI0rXfBtBicw1zPSsP-wE-26oLq/view?usp=sharing). Download and unzip it, then replace the existing networkx library.
+Due to compatibility issues between the networkx library in CALVIN and Python 3.10, we provide a compatible version: [networkx.zip](https://huggingface.co/MLL-Lab/worldagen/blob/main/networkx/networkx.zip). Download and unzip it, then replace the existing networkx library.
 
 ## 🤖 Run WorldAgen
 
@@ -86,7 +87,7 @@ You will usually need to modify the following in `scripts/calvin/train.sh`:
 
 ### Evaluation
 
-You can also download our pretrained [checkpoint](https://drive.google.com/file/d/1zubo1ckdc9Qlbnq4iNf9AD8V1oW8Z7Om/view?usp=share_link) and place it to the `checkpoints/scratch_qwen_16win_1img_5act` to run evaluation.
+You can also download our pretrained [checkpoint](https://huggingface.co/MLL-Lab/worldagen/blob/main/calvin/scratch_qwen_16win_1img_5act/16.pth) and place it at `checkpoints/scratch_qwen_16win_1img_5act/16.pth` to run evaluation.
 
 ### Eval without Test Time Training
 ```bash

@@ -37,9 +37,10 @@ sudo apt-get install -y libegl1-mesa libegl1-mesa-dev libgles2-mesa libgles2-mes
 
 **(1) Download Relevant Checkpoints**
 
-> For convenience, we recommend using [gdown](https://github.com/wkentaro/gdown) to download checkpoints directly from Google Drive.
+> All checkpoints are hosted on the Hugging Face Hub: [MLL-Lab/worldagen](https://huggingface.co/MLL-Lab/worldagen).
+> The easiest option is to run `bash scripts/download_checkpoints.sh`, which fetches every checkpoint and places it at the local path the scripts expect. The manual links are listed below.
 
-Download [MAE-Pretrained ViT-B Model](https://drive.google.com/file/d/1bSsvRI4mDM3Gg51C6xO0l9CbojYw3OEt/view?usp=share_link). Place it under `checkpoints/` in this repository. The recommended path is `checkpoints/mae_pretrain_vit_base.pth`.
+Download the [MAE-Pretrained ViT-B Model](https://huggingface.co/MLL-Lab/worldagen/blob/main/mae/mae_pretrain_vit_base.pth). Place it under `checkpoints/` in this repository. The recommended path is `checkpoints/mae_pretrain_vit_base.pth`.
 
 **(2) Update Config Files and Scripts**
 
@@ -76,7 +77,7 @@ You will usually need to modify the following in `scripts/libero/train.sh`:
 
 ### Evaluation
 
-You can also download our pretrained [checkpoint](https://drive.google.com/file/d/1IKRilL57qm52NEcHcLEL_ZFb2ak4sUMQ/view?usp=share_link) and place it to the `checkpoints/libero_traj7_len_1img_3act` to run evaluation. 
+You can also download our pretrained [checkpoint](https://huggingface.co/MLL-Lab/worldagen/blob/main/libero/libero_traj7_len_1img_3act/38.pth) and place it at `checkpoints/libero_traj7_len_1img_3act/38.pth` to run evaluation. 
 
 ### Eval without Test Time Training
 
