@@ -19,10 +19,11 @@
   Kangrui Wang<sup>1,*</sup>,
   Yuan Si<sup>1</sup>,
   Pingyue Zhang<sup>1</sup>,
+  Huang Huang<sup>2</sup>,
   Manling Li<sup>1</sup>
 </p>
 <p align="center">
-  <sup>1</sup>Northwestern University
+  <sup>1</sup>Northwestern University &nbsp;&nbsp; <sup>2</sup>Stanford University
 </p>
 <p align="center">
   <sup>*</sup>Project Lead
@@ -122,7 +123,7 @@ If you find **WorldAgen** useful in your research, please cite our work:
 ```bibtex
 @inproceedings{wan2026worldagen,
   title={WorldAgen: Unified State-Action Prediction with Test-Time World Model Training},
-  author={Wan, Chi and Wang, Kangrui and Si, Yuan and Zhang, Pingyue and Li, Manling},
+  author={Wan, Chi and Wang, Kangrui and Si, Yuan and Zhang, Pingyue and Huang, Huang and Li, Manling},
   booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
   volume={40},
   number={22},
