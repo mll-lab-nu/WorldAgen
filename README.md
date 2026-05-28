@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="assets/worldagen_logo.png" alt="WorldAgen logo" height="64" style="vertical-align: middle; margin-right: 10px;">
+  <img src="assets/worldagen_logo.png" alt="WorldAgen logo" height="64" align="absmiddle">
   WorldAgen
 </h1>
 <p align="center"><b>Unified State-Action Prediction with Test-Time World Model Training</b></p>
