@@ -36,7 +36,8 @@
 
 ## 📢 Updates
 
-- **[2026-05-28]** WorldAgen is accepted to **AAAI 2026** 🚀. We release the codebase, [trained checkpoints](https://huggingface.co/MLL-Lab/worldagen), and the project [homepage](https://worldagen.github.io/).
+- **[2026-05-28]** We release the codebase, [trained checkpoints](https://huggingface.co/MLL-Lab/worldagen), and the project [homepage](https://worldagen.github.io/).
+- **[2025-11-07]** WorldAgen is accepted to **AAAI 2026** 🚀. 
 
 ## 🌟 Overview
 
