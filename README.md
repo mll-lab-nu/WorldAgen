@@ -15,7 +15,7 @@
 </div>
 
 <p align="center">
-  Chi Wan<sup>1</sup>,
+  Chi Wan<sup>1, *</sup>,
   Kangrui Wang<sup>1,*</sup>,
   Yuan Si<sup>1</sup>,
   Pingyue Zhang<sup>1</sup>,
@@ -25,7 +25,7 @@
   <sup>1</sup>Northwestern University &nbsp;
 </p>
 <p align="center">
-  <sup>*</sup>Project Lead
+  <sup>*</sup>Equal Contribution
 </p>
 
 <p align="center">
