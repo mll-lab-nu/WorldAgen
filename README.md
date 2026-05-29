@@ -15,7 +15,7 @@
 </div>
 
 <p align="center">
-  Chi Wan<sup>1, *</sup>,
+  Chi Wan<sup>1,*</sup>,
   Kangrui Wang<sup>1,*</sup>,
   Yuan Si<sup>1</sup>,
   Pingyue Zhang<sup>1</sup>,
