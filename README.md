@@ -19,11 +19,10 @@
   Kangrui Wang<sup>1,*</sup>,
   Yuan Si<sup>1</sup>,
   Pingyue Zhang<sup>1</sup>,
-  Huang Huang<sup>2</sup>,
   Manling Li<sup>1</sup>
 </p>
 <p align="center">
-  <sup>1</sup>Northwestern University &nbsp;&nbsp; <sup>2</sup>Stanford University
+  <sup>1</sup>Northwestern University &nbsp;
 </p>
 <p align="center">
   <sup>*</sup>Project Lead
