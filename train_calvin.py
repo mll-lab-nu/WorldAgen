@@ -13,7 +13,7 @@ from transformers import (
     get_cosine_schedule_with_warmup,
     get_linear_schedule_with_warmup,
 )
-from models.model import UniAorld
+from models.model import WorldAgen
 from utils.train_utils import get_checkpoint, train_one_epoch_calvin, get_ckpt_name
 from utils.arguments_utils import get_parser
 from utils.calvin_data_utils import get_calvin_dataset, get_calvin_val_dataset, get_calvin_test_dataset, get_libero_pretrain_dataset
@@ -52,7 +52,7 @@ def main(args):
     args.run_name = args.run_name.replace("Seer", f"Seer_ptbs{ptbs}_{args.transformer_layers}layers_{args.transformer_heads}heads_hd{args.hidden_dim}")
     print("run_name:", args.run_name)
     # print('pred_state', args.pred_state)
-    model = UniAorld(
+    model = WorldAgen(
         clip_device=device_id,
         vit_checkpoint_path=args.vit_checkpoint_path,
         sequence_length=args.sequence_length,
@@ -237,4 +237,3 @@ if __name__ == "__main__":
     parser = get_parser()
     args = parser.parse_args()
     main(args)
-    

@@ -56,7 +56,7 @@ benchmark_map = {
     "libero_goal": "LIBERO_GOAL",
 }
 
-class UniAorldLiberoModelWrapper:
+class WorldAgenLiberoModelWrapper:
     def __init__(self, args, model, tokenizer, image_processor, cast_dtype, history_len=10, 
                 libero_eval_max_steps=600):
         super().__init__()
@@ -296,7 +296,7 @@ def get_robot_info_from_multi_step_env_libero(env, actions, image_process_fn):
     return primary, wrist, states, info_list, success
 
 def evaluate_libero_task(task, env, obs, args, model):
-    """Evaluate one LIBERO task using the UniAorld model with action/image chunk prediction"""
+    """Evaluate one LIBERO task using the WorldAgen model with action/image chunk prediction"""
     steps = 0
     success = 0
     model.reset()
@@ -516,10 +516,10 @@ def evaluate_policy_ddp(args, model, tokenizer, image_processor, cast_dtype):
                 del ttt_model
                 torch.cuda.empty_cache()
 
-            from models.model import UniAorld 
+            from models.model import WorldAgen
             
             # Create a fresh model for TTT
-            ttt_model = UniAorld(
+            ttt_model = WorldAgen(
                 clip_device=device_id,
                 vit_checkpoint_path=args.vit_checkpoint_path,
                 sequence_length=args.sequence_length,
@@ -564,7 +564,7 @@ def evaluate_policy_ddp(args, model, tokenizer, image_processor, cast_dtype):
             checkpoint = torch.load(args.resume_from_checkpoint, map_location="cpu")
             ttt_model.load_state_dict(checkpoint["model_state_dict"], False)
             
-            ttt_wrapped_model = UniAorldLiberoModelWrapper(
+            ttt_wrapped_model = WorldAgenLiberoModelWrapper(
                 args,
                 ttt_model, 
                 tokenizer, 
@@ -690,7 +690,7 @@ def print_and_save(result_list, task_suite):
 def eval_one_epoch_libero_ddp(args, model, image_processor, tokenizer):
     cast_dtype = get_cast_dtype(args.precision)
     hist_len = args.sequence_length
-    wrapped_model = UniAorldLiberoModelWrapper(
+    wrapped_model = WorldAgenLiberoModelWrapper(
                         args,
                         model, 
                         tokenizer, 

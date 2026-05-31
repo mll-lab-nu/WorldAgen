@@ -86,7 +86,7 @@ from torch.distributed.elastic.multiprocessing.errors import record
 from utils.arguments_utils import get_parser
 from pdb import set_trace
 from models.seer_model import SeerAgent
-from models.model import UniAorld
+from models.model import WorldAgen
 
 def random_seed(seed=42, rank=0):
     torch.manual_seed(seed + rank)
@@ -103,7 +103,7 @@ def main():
     random_seed(args.seed)
 
     # model
-    model = UniAorld(
+    model = WorldAgen(
         finetune_type=args.finetune_type,
         clip_device=device_id,
         vit_checkpoint_path=args.vit_checkpoint_path,

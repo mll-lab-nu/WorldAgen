@@ -16,8 +16,6 @@ conda activate worldagen
 ```
 git clone --recurse-submodules https://github.com/mees/calvin.git
 export CALVIN_ROOT=$(pwd)/calvin
-cd $CALVIN_ROOT
-sh install.sh
 ```
 
 **(3) Download CALVIN ABC-D dataset**
@@ -25,12 +23,22 @@ sh install.sh
 cd $CALVIN_ROOT/dataset
 sh download_data.sh ABC
 ```
+`ABC` downloads `task_ABC_D` (about 517 GB), which is the split used by the released CALVIN checkpoint.
 
 **(4) Download third party packages**
 ```
 cd ${YOUR_PATH_TO_WORLDAGEN}
 pip install -r requirements.txt
-pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cu121
+```
+
+**(5) Install CALVIN runtime packages**
+```
+python -m pip install wheel cmake==3.18.4.post1 hydra-core==1.1.1 pytorch-lightning==1.8.6 termcolor lightning_lite
+python -m pip install --no-build-isolation pyhash
+python -m pip install -e $CALVIN_ROOT/calvin_env/tacto
+python -m pip install -e $CALVIN_ROOT/calvin_env
+python -m pip install --no-deps -e $CALVIN_ROOT/calvin_models
+python -m pip install --force-reinstall numpy==1.23.1 numba==0.56.4 llvmlite==0.39.1 numpy-quaternion==2022.4.3 scipy==1.10.1 opencv-python==4.7.0.72 setuptools==57.5.0
 ```
 
 **(Optional) Install OpenGL for headless server**
@@ -38,15 +46,18 @@ pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https
 sudo apt-get install -y libegl1-mesa libegl1-mesa-dev libgles2-mesa libgles2-mesa-dev libgl1-mesa-glx libgl1-mesa-dev libosmesa6 libosmesa6-dev
 ```
 
-**(5) Create a soft link to CALVIN**
+**(6) Create a soft link to CALVIN**
 ```
 cd ${YOUR_PATH_TO_WORLDAGEN}
 ln -s $CALVIN_ROOT calvin
+export PYTHONPATH=$(pwd):$CALVIN_ROOT/calvin_env/tacto:$CALVIN_ROOT/calvin_env:$CALVIN_ROOT/calvin_models:$PYTHONPATH
+export MPLCONFIGDIR=$(pwd)/.cache/matplotlib
 ```
 
-**(6) Copy the index file `except_lang_idx.npy` to the CALVIN ABC-D training data directory.**
-```python
-cp -r data_info/except_lang_idx/except_lang_idx.npy calvin/dataset/task_ABC_D/training
+**(7) Copy the index file `except_lang_idx.npy` to the CALVIN ABC-D training data directory.**
+```bash
+mkdir -p calvin/dataset/task_ABC_D/training/except_lang_idx
+cp data_info/except_lang_idx/except_lang_idx.npy calvin/dataset/task_ABC_D/training/except_lang_idx/
 ```
 
 ## Before Running
@@ -67,7 +78,25 @@ The following variables should be updated to match your local paths and experime
 * **resume_from_checkpoint**: the fine-tuned checkpoint path used for evaluation (typically determined by `experiment_name` + `ckpt_names`).
 
 * **networkx:**
-Due to compatibility issues between the networkx library in CALVIN and Python 3.10, we provide a compatible version: [networkx.zip](https://huggingface.co/MLL-Lab/worldagen/blob/main/networkx/networkx.zip). Download and unzip it, then replace the existing networkx library.
+Due to compatibility issues between the networkx library in CALVIN and Python 3.10, we provide a compatible version: [networkx.zip](https://huggingface.co/MLL-Lab/worldagen/blob/main/networkx/networkx.zip). If you used `bash scripts/download_checkpoints.sh`, apply it with:
+```bash
+python - <<'PY'
+import pathlib
+import site
+import zipfile
+
+site_dir = pathlib.Path(site.getsitepackages()[0])
+target = site_dir / "networkx"
+backup = site_dir / "networkx_pypi_backup"
+if target.exists() and not backup.exists():
+    target.rename(backup)
+with zipfile.ZipFile("checkpoints/networkx.zip") as archive:
+    archive.extractall(site_dir)
+PY
+```
+
+* **CLIP ViT-B/32:**
+`models/model.py` loads `checkpoints/clip/ViT-B-32.pt` if present; otherwise it downloads CLIP at runtime. On offline servers, download it before evaluation and place it at `checkpoints/clip/ViT-B-32.pt`.
 
 ## 🤖 Run WorldAgen
 

@@ -16,7 +16,7 @@ import torch.optim as optim
 from tqdm.auto import tqdm, trange
 import PIL.Image as Image
 import random
-from UniAorld.utils.train_utils import patchify, normalize_patchfied_image
+from utils.train_utils import patchify, normalize_patchfied_image
 import os 
 import numpy as np
 import random
@@ -405,7 +405,7 @@ class TestTimeTrainer(nn.Module):
         return self.wrapped_model
     
     def save_checkpoint(self, epoch):
-        save_dir = "./checkpoints/ttt_uniaorld"
+        save_dir = "./checkpoints/ttt_worldagen"
         if not os.path.exists(save_dir):
             os.makedirs(save_dir, exist_ok=True)
 
@@ -522,8 +522,7 @@ def save_video_as_gif(video_tensor, output_path="video.gif", fps=8):
         duration=int(1000/fps),  # milliseconds between frames
         loop=0  # 0 means loop indefinitely
     )
-    
+
     print(f"GIF saved to {output_path}")
-    
+
     return output_path
-    

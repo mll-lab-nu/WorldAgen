@@ -81,6 +81,5 @@ for ckpt_name in "${ckpt_names[@]}"; do
         --test_ori \
         --use_qwen \
         --eval_action_entropy \
-        --resume_from_checkpoint ${resume_from_checkpoint} | tee ${log_file} \
+        --resume_from_checkpoint ${resume_from_checkpoint} | tee ${log_file}
 done
-    

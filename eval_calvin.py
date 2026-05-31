@@ -7,7 +7,7 @@ import wandb
 import clip
 from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.distributed.elastic.multiprocessing.errors import record
-from models.model import UniAorld
+from models.model import WorldAgen
 from utils.calvin_data_utils import get_calvin_dataset, get_calvin_val_dataset, get_calvin_test_dataset
 from utils.distributed_utils import init_distributed_device, world_info_from_env
 from utils.eval_utils_calvin import test_calvin
@@ -33,7 +33,7 @@ def main():
     print("device_id: ", device_id)
     random_seed(args.seed)
 
-    model = UniAorld(
+    model = WorldAgen(
         clip_device=device_id,
         vit_checkpoint_path=args.vit_checkpoint_path,
         sequence_length=args.sequence_length,

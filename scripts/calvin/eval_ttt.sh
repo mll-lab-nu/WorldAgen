@@ -1,28 +1,27 @@
 #!/bin/bash
-win=16          # window size
-img=1           # image sequence length
-act=5           # action sequence length
+win="${WIN:-16}"          # window size
+img="${IMG_SEQ_LEN:-1}"  # image sequence length
+act="${ACT_SEQ_LEN:-5}"  # action sequence length
 
-lora_mode="lora"
-lora_rank=128
-lora_alpha=32
-lora_dropout=0.0
-ttt_num_samples=34
-ttt_traj_len=60
-ttt_sample_repeat=6
-ttt_batch_size=1
-ttt_num_epoch=1
-ttt_learning_rate=0.0005
-ttt_weight_decay=0.01
+lora_mode="${LORA_MODE:-lora}"
+lora_rank="${LORA_RANK:-128}"
+lora_alpha="${LORA_ALPHA:-32}"
+lora_dropout="${LORA_DROPOUT:-0.0}"
+ttt_num_samples="${TTT_NUM_SAMPLES:-34}"
+ttt_traj_len="${TTT_TRAJ_LEN:-60}"
+ttt_sample_repeat="${TTT_SAMPLE_REPEAT:-6}"
+ttt_batch_size="${TTT_BATCH_SIZE:-1}"
+ttt_num_epoch="${TTT_NUM_EPOCH:-1}"
+ttt_learning_rate="${TTT_LEARNING_RATE:-0.0005}"
+ttt_weight_decay="${TTT_WEIGHT_DECAY:-0.01}"
 
-ckpt_names=(
-    "16" 
-)
+ckpt_names=(${CKPT_NAMES:-"16"})
 
-calvin_dataset_path="calvin/dataset/task_ABC_D/"
-calvin_conf_path="calvin/calvin_models/conf"
-vit_checkpoint_path="checkpoints/vit_mae/mae_pretrain_vit_base.pth"
-save_checkpoint_path="checkpoints/"
+calvin_dataset_path="${CALVIN_DATASET_PATH:-calvin/dataset/task_ABC_D/}"
+calvin_conf_path="${CALVIN_CONF_PATH:-calvin/calvin_models/conf}"
+vit_checkpoint_path="${VIT_CHECKPOINT_PATH:-checkpoints/vit_mae/mae_pretrain_vit_base.pth}"
+save_checkpoint_path="${SAVE_CHECKPOINT_PATH:-checkpoints/}"
+ttt_data_dir="${TTT_DATA_DIR:-./data_for_one_traj/}"
 
 window_size=$win
 image_sequence_length=$img
@@ -32,10 +31,12 @@ sequence_length=$(( (window_size - image_sequence_length) / action_sequence_leng
 
 experiment_name="scratch_qwen_${win}win_${img}img_${act}act"
 log_name="scratch_qwen_${win}win_${img}img_${act}act_ttt_${ttt_num_samples}samples_${ttt_traj_len}traj_${ttt_sample_repeat}repeat_${lora_rank}rank_${lora_alpha}alpha_${ttt_learning_rate}lr_train_once"
-base_checkpoint_dir="checkpoints/$experiment_name"
+base_checkpoint_dir="${BASE_CHECKPOINT_DIR:-checkpoints/$experiment_name}"
 
-node=1
-node_num=1
+node="${NNODES:-1}"
+node_num="${NPROC_PER_NODE:-1}"
+master_port="${MASTER_PORT:-10015}"
+workers="${WORKERS:-16}"
 
 echo "========================================="
 echo "Configuration:"
@@ -66,7 +67,7 @@ for ckpt_name in "${ckpt_names[@]}"; do
     mkdir -p "$log_folder"
     log_file="eval_logs/$log_name/evaluate_${ckpt_name}.pth.log"
 
-    torchrun --nnodes=${node} --nproc_per_node=${node_num} --master_port=10015 eval_calvin.py \
+    torchrun --nnodes=${node} --nproc_per_node=${node_num} --master_port=${master_port} eval_calvin.py \
         --traj_cons \
         --rgb_pad -1 \
         --gripper_pad -1 \
@@ -75,7 +76,7 @@ for ckpt_name in "${ckpt_names[@]}"; do
         --vit_checkpoint_path ${vit_checkpoint_path} \
         --calvin_dataset ${calvin_dataset_path} \
         --calvin_conf_path ${calvin_conf_path} \
-        --workers 16 \
+        --workers ${workers} \
         --lr_scheduler cosine \
         --save_every_iter 50000 \
         --num_epochs 20 \
@@ -113,7 +114,7 @@ for ckpt_name in "${ckpt_names[@]}"; do
         --ttt_learning_rate ${ttt_learning_rate} \
         --ttt_weight_decay ${ttt_weight_decay} \
         --ttt_max_grad_norm 0.1 \
-        --ttt_data_dir "./data_for_one_traj/" \
+        --ttt_data_dir ${ttt_data_dir} \
         --lora_mode ${lora_mode} \
         --lora_rank ${lora_rank} \
         --lora_alpha ${lora_alpha} \

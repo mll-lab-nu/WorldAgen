@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.cache/
+checkpoints/
+calvin
+eval_logs/
+data_for_one_traj/

@@ -7,7 +7,7 @@ import time
 import copy
 import copy
 from collections import deque
-from models.model import UniAorld
+from models.model import WorldAgen
 # from moviepy.editor import ImageSequenceClip
 from calvin_agent.models.calvin_base_model import CalvinBaseModel
 import time
@@ -117,8 +117,8 @@ def sample_split_as_chunk(input_tensor, args, num_chunk):
     label_list = torch.cat(label_list, dim=1)
     return input_list, label_list
 
-class UniAorldModelWrapper(CalvinBaseModel):
-    def __init__(self, args, model: UniAorld, tokenizer, image_processor, cast_dtype, history_len=10,
+class WorldAgenModelWrapper(CalvinBaseModel):
+    def __init__(self, args, model: WorldAgen, tokenizer, image_processor, cast_dtype, history_len=10,
                 calvin_eval_max_steps=360):
         super().__init__()
         self.model = model
@@ -410,7 +410,7 @@ def evaluate_policy_ddp(model, env, args, epoch, calvin_conf_path, text_process_
                     del ttt_trainer
                     torch.cuda.empty_cache()
                 env = make_env(args.calvin_dataset)
-                ttt_model = UniAorld(
+                ttt_model = WorldAgen(
                     clip_device=device_id,
                     vit_checkpoint_path=args.vit_checkpoint_path,
                     sequence_length=args.sequence_length,
@@ -451,7 +451,7 @@ def evaluate_policy_ddp(model, env, args, epoch, calvin_conf_path, text_process_
                 ttt_model = DDP(ttt_model, device_ids=[device_id], find_unused_parameters=True)
                 ttt_model.load_state_dict(checkpoint["model_state_dict"], False)
 
-                ttt_wrapped_model = UniAorldModelWrapper(
+                ttt_wrapped_model = WorldAgenModelWrapper(
                                 args,
                                 ttt_model, 
                                 text_process_fn, 
@@ -669,7 +669,7 @@ def test_calvin(args, model, dataloader, dataset_path, image_processor, tokenize
     hist_len = args.sequence_length
     text_process_fn = functools.partial(preprocess_text_calvin, tokenizer=tokenizer)
     image_process_fn = functools.partial(preprocess_image, image_processor=image_processor)
-    wrapped_model = UniAorldModelWrapper(
+    wrapped_model = WorldAgenModelWrapper(
                         args,
                         model, 
                         text_process_fn, 

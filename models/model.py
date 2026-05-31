@@ -133,7 +133,7 @@ def get_1d_sincos_pos_embed(embed_dim, length, scale=1.0):
     pos = np.arange(0, length)[..., None] / scale
     return get_1d_sincos_pos_embed_from_grid(embed_dim, pos)
 
-class UniAorld(nn.Module):
+class WorldAgen(nn.Module):
     def __init__(
         self,
         clip_device,
