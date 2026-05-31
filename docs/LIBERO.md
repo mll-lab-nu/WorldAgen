@@ -12,21 +12,21 @@ conda create -n worldagen python=3.10
 conda activate worldagen
 ```
 
-**(2) Install LIBERO**
-```
-git clone https://github.com/Lifelong-Robot-Learning/LIBERO.git
-cd LIBERO
-pip install -r requirements.txt
-pip install transformers==4.40.2
-pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cu121
-pip install -e .
-```
-
-**(3) Install WorldAgen dependencies**
+**(2) Install WorldAgen dependencies**
 ```
 cd ${YOUR_PATH_TO_WORLDAGEN}
 pip install -r requirements.txt
 ```
+`requirements.txt` pins `torch==2.2.0+cu121`, `torchvision==0.17.0+cu121`, `torchaudio==2.2.0+cu121`, and `transformers==4.52.0`.
+
+**(3) Install LIBERO**
+```
+git clone https://github.com/Lifelong-Robot-Learning/LIBERO.git
+cd LIBERO
+pip install -e . --no-deps
+pip install robosuite==1.4.0 robomimic==0.2.0 bddl==1.0.1 easydict==1.9 gym==0.25.2 cloudpickle==2.1.0 opencv-python==4.6.0.66 thop==0.1.1-2209072238 future==0.18.2
+```
+Do not install LIBERO's upstream `requirements.txt` directly in the WorldAgen environment: it pins older `numpy`, `transformers`, and Torch versions that conflict with WorldAgen's Qwen3-based model.
 
 **(Optional) Install OpenGL for headless server**
 ```python
