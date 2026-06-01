@@ -100,16 +100,54 @@ Environment setup (conda + dependencies), dataset download, training, and evalua
 
 ## 🎬 Visualization
 
-Below is a qualitative comparison of **WorldAgen** before and after applying Test-Time Training (TTT) on CALVIN. After adapting the world model, the agent performs more precise grasping and exhibits persistent retry behavior when facing failures.
+Below are qualitative comparisons of **WorldAgen** before and after applying Test-Time Training (TTT) on CALVIN. After adapting the world model, the agent performs more precise grasping and exhibits persistent retry behavior when facing failures.
 
-<table>
+<p align="center">
+  <b>Task:</b> <b>rotate blue block right -> move slider right -> lift red block from slider -> place in slider -> turn off lightbulb</b>
+</p>
+
+<table align="center">
   <tr>
     <td align="center">
-      <img src="assets/before_ttt.gif" width="300"><br>
+      <img src="assets/ttt_comparison/seq1_before_ttt.gif" width="300"><br>
       <b>Before TTT</b>
     </td>
     <td align="center">
-      <img src="assets/after_ttt.gif" width="300"><br>
+      <img src="assets/ttt_comparison/seq1_after_ttt.gif" width="300"><br>
+      <b>After TTT</b>
+    </td>
+  </tr>
+</table>
+
+<p align="center">
+  <b>Task:</b> <b>open drawer -> push red block right -> move slider left -> lift pink block from slider -> place in slider</b>
+</p>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="assets/ttt_comparison/seq2_before_ttt.gif" width="300"><br>
+      <b>Before TTT</b>
+    </td>
+    <td align="center">
+      <img src="assets/ttt_comparison/seq2_after_ttt.gif" width="300"><br>
+      <b>After TTT</b>
+    </td>
+  </tr>
+</table>
+
+<p align="center">
+  <b>Task:</b> <b>rotate pink block right -> turn off LED -> lift pink block -> place in slider -> open drawer</b>
+</p>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="assets/ttt_comparison/seq3_before_ttt.gif" width="300"><br>
+      <b>Before TTT</b>
+    </td>
+    <td align="center">
+      <img src="assets/ttt_comparison/seq3_after_ttt.gif" width="300"><br>
       <b>After TTT</b>
     </td>
   </tr>
